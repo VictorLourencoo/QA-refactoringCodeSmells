@@ -37,6 +37,7 @@ public class Usuarios implements Initializable {
     private Button btView;
 
     private UsuarioDAO udao = new UsuarioDAO();
+	private int id;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -100,7 +101,9 @@ public class Usuarios implements Initializable {
     public void botaoAddUsuario() throws IOException {
         new GerenciarUsuario().show();
     }
-
+    public int getId(){
+        return this.id;
+    }
     public void botaoRemoveUsuario() throws ClassNotFoundException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("ControlX - Remover usuario");
@@ -142,19 +145,7 @@ public class Usuarios implements Initializable {
         new MenuPrincipal().show();
     }
 
-    public void pesquisarUsuario() throws ClassNotFoundException {
-        if (txPesquisar.getText().equals("")) {
-            listView(udao.listAll());
-        }else {
-
-            if (rdId.isSelected()) {
-                listView(udao.listAllById(txPesquisar.getText()));
-            } else if (rdNome.isSelected()) {
-                listView(udao.listAllByName(txPesquisar.getText()));
-            }
-        }
-
-    }
+ 
 
     public void verificaSelecao(){
         if (!tbView.getSelectionModel().isEmpty()){

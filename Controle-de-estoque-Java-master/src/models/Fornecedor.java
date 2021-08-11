@@ -23,9 +23,7 @@ public class Fornecedor {
         this.nome = nome;
     }
     //-------x----------------x--------
-    public int getId(){
-        return this.id;
-    }
+    
     public void setId(int id){
         this.id = id;
     }

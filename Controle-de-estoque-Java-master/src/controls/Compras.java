@@ -40,8 +40,7 @@ public class Compras implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             listViewPendentes(cdao.listAll());
-            verificaSelecao();
-            verificaData();
+           
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -111,39 +110,7 @@ public class Compras implements Initializable {
         tbCPendentes.getColumns().addAll(idColumn, usuarioColumn, valorColumn, dataColumn);
     }
 
-    public void verificaSelecao(){
-        if (!tbCPendentes.getSelectionModel().isEmpty()){
-            btVisualizar.setDisable(false);
-        } else {
-            btVisualizar.setDisable(true);
-        }
-
-        if (tbCPendentes.isFocused()){
-            btVisualizar.setDisable(false);
-        } else {
-            btVisualizar.setDisable(true);
-        }
-    }
-
-    public void verificaData(){
-        Date data = new Date(System.currentTimeMillis());
-        tbCPendentes.setRowFactory(tv -> {
-            return new TableRow<Compra>() {
-                @Override
-                public void updateItem(Compra c, boolean empty) {
-                    super.updateItem(c, empty) ;
-                    if (c == null) {
-                        setStyle("");
-                    } else if (c.getDataEntrega().before(data)) {
-                        setStyle("-fx-text-background-color: #AAA;");
-                        //setStyle("-fx-background-color: #0080FF;");
-                    } else {
-                        //setStyle("-fx-background-color: #0080FF;");
-                    }
-                }
-            };
-        });
-    }
+   
 
     public void botaoVoltar() throws IOException {
         new MenuPrincipal().show();

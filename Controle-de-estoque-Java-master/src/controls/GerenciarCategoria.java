@@ -42,51 +42,8 @@ public class GerenciarCategoria implements Initializable {
         this.idCat = idCat;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+   
 
-        ativarBotaoSalvar();
-        if (view == false && edit == false){
-            try {
-                txId.setText(Integer.toString(cdao.idAutoIncrement()));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if(view){
-            try {
-                txNome.setEditable(false);
-                btSalvar.setVisible(false);
-                btCancelar.setText("Voltar");
-                preencher();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if(edit){
-            try {
-                preencher();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void ativarBotaoSalvar(){
-        if(txNome.getText().isEmpty()){
-            btSalvar.setDisable(true);
-        } else {
-            btSalvar.setDisable(false);
-        }
-    }
-
-    public void preencher() throws ClassNotFoundException {
-        Categoria c = cdao.read(idCat);
-        txId.setText(Integer.toString(c.getId()));
-        txNome.setText(c.getNome());
-    }
 
     public void show(boolean view, boolean edit, int id) throws IOException {
         Stage primaryStage = new Stage();
@@ -132,5 +89,11 @@ public class GerenciarCategoria implements Initializable {
     public void botaoCancelar() throws IOException {
         new Categorias().show();
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

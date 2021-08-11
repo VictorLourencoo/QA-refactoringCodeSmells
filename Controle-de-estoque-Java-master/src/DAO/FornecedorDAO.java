@@ -62,7 +62,7 @@ public class FornecedorDAO {
             stmt.setString(9, f.getBairro());
             stmt.setString(10, f.getCidade());
             stmt.setString(11, f.getEstado());
-            stmt.setInt(12, f.getId());
+         
 
             stmt.executeUpdate();
 
@@ -106,6 +106,12 @@ public class FornecedorDAO {
         }
         return lista;
     }
+    public void preencher() throws ClassNotFoundException {
+        boolean edit;
+		boolean view;
+	
+        }
+
 
     public List<Fornecedor> listAllById(String id) throws ClassNotFoundException {
 
@@ -191,8 +197,7 @@ public class FornecedorDAO {
 
             stmt = con.prepareStatement("UPDATE fornecedor SET deleted_at = ? WHERE id = ?;");
             stmt.setString(1, data);
-            stmt.setInt(2, f.getId());
-
+           
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -202,7 +207,7 @@ public class FornecedorDAO {
         }
     }
 
-    public Fornecedor read(int id) throws ClassNotFoundException {
+    public Fornecedor read(String string) throws ClassNotFoundException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -212,7 +217,7 @@ public class FornecedorDAO {
             stmt = con.prepareStatement("SELECT id, nome, cnpj, tel1, tel2, cep, " +
                     "num, rua, comp, bairro, cidade, estado" +
                     " FROM fornecedor WHERE id = ? and deleted_at is NULL;");
-            stmt.setInt(1, id);
+           
             rs = stmt.executeQuery();
 
             if(rs.next()) {

@@ -2,7 +2,7 @@ package DAO;
 
 import connection.ConnectionFactory;
 import models.Usuario;
-
+import controls.getsAtribb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +51,7 @@ public class UsuarioDAO {
             stmt = con.prepareStatement("INSERT INTO usuario (nome, cpf, sexo, dataNasc," +
                     " tel1, tel2, cep, num, rua, comp, bairro, cidade, estado, cargo, login, senha) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-            stmt.setString(1, u.getNome());
+         
             stmt.setString(2, u.getCpf());
             stmt.setString(3, u.getSexo());
             String data = dateFormat.format(u.getDataNasc());
@@ -89,7 +89,7 @@ public class UsuarioDAO {
                     " tel1 = ?, tel2 = ?, cep = ?, num = ?, rua = ?, comp = ?," +
                     " bairro = ?, cidade = ?, estado = ?, cargo = ?, login = ?, senha = ? WHERE id = ?;");
             Usuario user = new Usuario();
-            stmt.setString(1, u.getNome());
+            
             stmt.setString(2, u.getCpf());
             stmt.setString(3, u.getSexo());
             String data = dateFormat.format(u.getDataNasc());
@@ -97,8 +97,8 @@ public class UsuarioDAO {
             stmt.setString(5, u.getTelefone1());
             stmt.setString(6, u.getTelefone2());
             stmt.setString(7, u.getCep());
-            stmt.setInt(8, u.getNum());
-            stmt.setString(9, u.getRua());
+        
+           
             stmt.setString(10, u.getComp());
             stmt.setString(11, u.getBairro());
             stmt.setString(12, u.getCidade());

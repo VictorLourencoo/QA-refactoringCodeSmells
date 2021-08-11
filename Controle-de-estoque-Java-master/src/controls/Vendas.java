@@ -71,7 +71,7 @@ public class Vendas implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         try{
             atvBotaoAdd();
-            getUser();
+           
             produtos.clear();
             txPrecoTotal.clear();
             precoTotal = 0;
@@ -84,9 +84,7 @@ public class Vendas implements Initializable{
 
     }
 
-    public void getUser(){
-        txVendedor.setText(Login.getUser().getNome());
-    }
+    
 
     public void show() throws IOException {
         Stage primaryStage = new Stage();
@@ -103,31 +101,8 @@ public class Vendas implements Initializable{
         primaryStage.show();
     }
 
-    public void botaoVoltar() throws IOException{
-        if(!produtos.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("ControlX - Venda em andamento");
-            alert.setResizable(false);
-            alert.setHeaderText("Cancelar Venda");
-            alert.setContentText("Existem produtos adicionados a lista de vendas, se sair agora, a venda será cancelada.\n Deseja realmente sair?");
-            alert.getButtonTypes();
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if(!result.isPresent())
-                return;
-            else if(result.get() == ButtonType.OK) {
-                new MenuPrincipal().show();
-                produtos.clear();
-            }
-            else if(result.get() == ButtonType.CANCEL)
-                return;
-        }
-        else {
-            new MenuPrincipal().show();
-            produtos.clear();
-        }
-
-    }
+    
+     
 
     public void autoComplete() throws ClassNotFoundException {
         String pesquisa = txPesquisar.getText();
@@ -139,9 +114,9 @@ public class Vendas implements Initializable{
     }
     public void fillFields(){
         Produto p = (Produto) lvProdutos.getSelectionModel().getSelectedItem();
-        txId.setText(String.valueOf(p.getId()));
+        txId.setText(String.valueOf(p.getCat()));
         txNome.setText(p.getNome());
-        txQtdEstoque.setText(String.valueOf(p.getQtd()) + " " + p.getTipoUn());
+        txQtdEstoque.setText(String.valueOf(p.getQtdUn()) + " " + p.getQtdUn());
         txPrecoUn.setText(String.valueOf("R$ " + p.getPreco()));
         txPrecoVenda.setText(String.valueOf("R$ " + p.getPreco()));
     }
@@ -158,36 +133,8 @@ public class Vendas implements Initializable{
     }
 
 
-    public void addProds()throws ClassNotFoundException {
-        //Dando cast do objeto Produto selecionado na ListView
-        Produto pro = (Produto) lvProdutos.getSelectionModel().getSelectedItem();
-        for (Produto p : produtos) {
-            if (p.getId() == pro.getId()) { //Se o produto ja tiver adicionado na lista, cancelar
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ControlX - Produto duplicado");
-                alert.setHeaderText("Produto já adicionado na venda");
-                alert.setContentText("Esse produto já está adicionado ao carrinho de venda, operação cancelada!");
-
-                alert.showAndWait();
-                return;
-            }
-        }
-        if (Double.parseDouble(txQtdVenda.getText()) > pro.getQtd()) {//Se qtdVenda > qtdEstoque
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ControlX - Quantidade inválida");
-            alert.setHeaderText("Impossível vender " + txQtdVenda.getText() + " " + pro.getTipoUn() + " do produto");
-            alert.setContentText("Por favor verifique se a quantidade de venda está \n disponível no estoque");
-
-            alert.showAndWait();
-            return;
-        }
-        //Lista estática produtos terá como qtd a quantidade de produto que foi vendida
-        pro.setQtd(Double.parseDouble(txQtdVenda.getText()));
-        //Adicionando o produto selecionado a lista
-        produtos.add(pro);
-        refreshTable();
-
-    }
+    
+  
 
     public void refreshTable(){
         tbProdutos.getItems().clear();
@@ -197,8 +144,7 @@ public class Vendas implements Initializable{
         ObservableList<Produto> prod = FXCollections.observableArrayList();
 
         for (Produto p : produtos) { //Para cada produto presente na lista estática
-            //Adicionamos na observable list
-            prod.add(new Produto(p.getId(), p.getNome(), p.getPreco(), p.getQtd(), p.getTipoUn(), p.getCat()));
+           
         }
 
         TableColumn<Produto, String> idColumn = new TableColumn<>("ID");
@@ -224,9 +170,7 @@ public class Vendas implements Initializable{
         clearFields();
         DecimalFormat df = new DecimalFormat("#0.00");
         precoTotal = 0;
-        for(Produto p: produtos){
-            precoTotal += (p.getQtd()*p.getPreco());
-        }
+        
         txPrecoTotal.setText(String.valueOf(df.format(precoTotal)));
     }
 
@@ -239,32 +183,21 @@ public class Vendas implements Initializable{
         atvBotaoAdd();
     }
 
-    public void removeItem() throws ClassNotFoundException {
+    private void atvBotaoAdd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void removeItem() throws ClassNotFoundException {
         Produto p = pDAO.read(tbProdutos.getSelectionModel().getSelectedItem());
         for(Produto prods: produtos){
-            if (prods.getId() == p.getId())
+            if (prods.getCat() == p.getCat())
                 produtos.remove(prods);
         }
         refreshTable();
     }
 
-    public void atvBotaoAdd(){
-        if(txNome.getText().isEmpty() || txPrecoVenda.getText().isEmpty() ||
-                txPrecoVenda.getText().isEmpty() || txPrecoUn.getText().isEmpty() ||
-                txQtdEstoque.getText().isEmpty() || txQtdVenda.getText().isEmpty() || txId.getText().isEmpty()){
-            btAdicionar.setDisable(true);
-        } else {
-            btAdicionar.setDisable(false);
-        }
-        if(produtos.isEmpty()){
-            btFinalizar.setDisable(true);
-            btRemover.setDisable(true);
-        }
-        else {
-            btFinalizar.setDisable(false);
-            btRemover.setDisable(false);
-        }
-    }
+    
     public void finalizarVenda() throws ClassNotFoundException, IOException {
         Venda venda = new Venda();
         venda.setProdutos(produtos);
@@ -275,11 +208,8 @@ public class Vendas implements Initializable{
         venda.setValor(precoTotal);
         venda.setUsuario(Login.getUser());
         boolean sucess = vDAO.vender(venda);
-        for(Produto p: produtos){
-            Produto pEstoque = pDAO.read(p.getId());
-            pEstoque.setQtd(pEstoque.getQtd() - p.getQtd());
-            pDAO.up(pEstoque);
-        }
+       
+        
         if(sucess){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("ControlX - Venda Concluída");

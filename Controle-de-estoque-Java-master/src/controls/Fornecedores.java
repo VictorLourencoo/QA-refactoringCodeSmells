@@ -71,11 +71,7 @@ public class Fornecedores implements Initializable {
 
         ObservableList<Fornecedor> lista = FXCollections.observableArrayList();
 
-        for (Fornecedor f : forns) {
-            lista.add(new Fornecedor(f.getId(), f.getNome(), f.getCnpj(),
-                    f.getTelefone1(), f.getTelefone2(), f.getCep(), f.getNum(),
-                    f.getRua(), f.getComp(), f.getBairro(), f.getCidade(), f.getEstado()));
-        }
+       
 
         TableColumn<Fornecedor, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setMinWidth(50);
@@ -105,7 +101,7 @@ public class Fornecedores implements Initializable {
 
     public void botaoRemoveFornecedor() throws ClassNotFoundException {
         ProdutoDAO pdao = new ProdutoDAO();
-        Fornecedor f = fdao.read(tbView.getSelectionModel().getSelectedItem().getId());
+        Fornecedor f = fdao.read(tbView.getSelectionModel().getSelectedItem().getCep());
         List<Produto> lista = pdao.listAllByForn(f);
 
         if (lista.isEmpty()) {
@@ -116,7 +112,7 @@ public class Fornecedores implements Initializable {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                fdao.del(fdao.read(tbView.getSelectionModel().getSelectedItem().getId()));
+                fdao.del(fdao.read(tbView.getSelectionModel().getSelectedItem().getCep()));
                 listView(fdao.listAll());
             } else {
                 // ... user chose CANCEL or closed the dialog
@@ -132,30 +128,18 @@ public class Fornecedores implements Initializable {
     }
 
     public void botaoEditFornecedor() throws IOException, ClassNotFoundException {
-        new GerenciarFornecedor().show(false, true, tbView.getSelectionModel().getSelectedItem().getId());
+        new GerenciarFornecedor().show();
     }
 
     public void botaoViewFornecedor() throws IOException, ClassNotFoundException {
-        new GerenciarFornecedor().show(true, false, tbView.getSelectionModel().getSelectedItem().getId());
+        new GerenciarFornecedor().show();
     }
 
     public void botaoVoltar() throws IOException {
         new MenuPrincipal().show();
     }
 
-    public void pesquisarFornecedor() throws ClassNotFoundException {
-        if (txPesquisar.getText().equals("")) {
-            listView(fdao.listAll());
-        }else {
-
-            if (rdId.isSelected()) {
-                listView(fdao.listAllById(txPesquisar.getText()));
-            } else if (rdNome.isSelected()) {
-                listView(fdao.listAllByName(txPesquisar.getText()));
-            }
-        }
-
-    }
+ 
 
     public void verificaSelecao(){
         if (!tbView.getSelectionModel().isEmpty()){

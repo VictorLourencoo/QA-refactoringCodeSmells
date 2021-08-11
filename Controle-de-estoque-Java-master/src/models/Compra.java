@@ -23,9 +23,7 @@ public class Compra {
         this.usuario = usuario;
     }
     //-------x----------------x--------
-    public int getId(){
-        return this.id;
-    }
+   
     public void setId(int id){
         this.id = id;
     }
@@ -90,4 +88,8 @@ public class Compra {
     public Compra(){
 
     }
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

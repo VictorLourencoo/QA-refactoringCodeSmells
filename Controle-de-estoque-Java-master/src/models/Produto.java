@@ -13,40 +13,8 @@ public class Produto {
     private Fornecedor forn = new Fornecedor();
     //GET and SET
     //-------x----------------x--------
-    public String getNome(){
-        return this.nome;
-    }
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    //-------x----------------x--------
-    public int getId(){
-        return this.id;
-    }
-    public void setId(int id){
-        this.id = id;
-    }
-    //-------x----------------x--------
-    public double getPreco(){
-        return this.preco;
-    }
-    public void setPreco(double preco){
-        this.preco = preco;
-    }
-    //-------x----------------x--------
-    public double getQtd(){
-        return this.qtd;
-    }
-    public void setQtd(double qtd){
-        this.qtd = qtd;
-    }
-    //-------x----------------x--------
-    public String getTipoUn(){
-        return this.tipoUn;
-    }
-    public void setTipoUn(String tipoUn){
-        this.tipoUn = tipoUn;
-    }
+   
+   
     //-------x----------------x--------
     public double getEstoqueMin(){
         return this.estoqueMin;
@@ -78,7 +46,7 @@ public class Produto {
         this.cat = cat;
     }
 
-    public String getQtdUn() { return this.qtd + " " + this.getTipoUn();}
+    public String getQtdUn() { return this.qtd + " " + this.getQtdUn();}
     //-------x----------------x--------
     //Construtores
     //-------x----------------x--------
@@ -108,4 +76,16 @@ public class Produto {
     public Produto(){
     }
     //-------x----------------x--------
+	public String getPreco1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getNome() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getPreco() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

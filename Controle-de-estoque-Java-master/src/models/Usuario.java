@@ -24,16 +24,10 @@ public class Usuario {
 
     //GET and SET
     //-------x----------------x--------
-    public String getNome(){
-        return this.nome;
-    }
-    public void setNome(String nome){
-        this.nome = nome;
-    }
+   
+  
     //-------x----------------x--------
-    public int getId(){
-        return this.id;
-    }
+    
     public void setId(int id){
         this.id = id;
     }
@@ -83,8 +77,8 @@ public class Usuario {
     public int getNum(){
         return this.num;
     }
-    public void setNum(int num){
-        this.num = num;
+    public void setNum(int i){
+        this.num = i;
     }
     //-------x----------------x--------
     public String getRua(){
@@ -122,9 +116,7 @@ public class Usuario {
         this.estado = estado;
     }
     //-------x----------------x--------
-    public int getCargo() {
-        return cargo;
-    }
+   
 
     public void setCargo(int cargo) {
         this.cargo = cargo;
@@ -187,4 +179,16 @@ public class Usuario {
     public String toString(){
         return id + " - " + nome;
     }
+	public int getCargo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void setNome(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 }

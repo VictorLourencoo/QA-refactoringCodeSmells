@@ -76,16 +76,18 @@ public class GerenciarFornecedor implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
+        
             preencher();
             visualizar();
             ativarBotaoSalvar();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void show() throws IOException {
+    private void preencher() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void show() throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = new FXMLLoader(getClass().getResource("/views/GerenciarFornecedor.fxml"));
         root.setControllerFactory(c -> {
@@ -115,27 +117,8 @@ public class GerenciarFornecedor implements Initializable {
         primaryStage.show();
     }
 
-    public void preencher() throws ClassNotFoundException {
-        if (!view && !edit){
-            txId.setText(Integer.toString(fdao.idAutoIncrement()));
-        }
+  
 
-        if (view || edit){
-            Fornecedor f = fdao.read(id);
-            txId.setText(Integer.toString(f.getId()));
-            txNome.setText(f.getNome());
-            txCnpj.setText(f.getCnpj());
-            txTel1.setText(f.getTelefone1());
-            txTel2.setText(f.getTelefone2());
-            txCep.setText(f.getCep());
-            txNum.setText(Integer.toString(f.getNum()));
-            txRua.setText(f.getRua());
-            txComp.setText(f.getComp());
-            txBairro.setText(f.getBairro());
-            txCidade.setText(f.getCidade());
-            txEstado.setText(f.getEstado());
-        }
-    }
 
     public void visualizar(){
         if(view) {

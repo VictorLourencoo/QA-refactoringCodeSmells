@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import models.Categoria;
 import models.Usuario;
 
 import java.io.IOException;
@@ -104,70 +105,9 @@ public class GerenciarUsuario implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            ativarBotaoSalvar();
-            iniCombobox();
-            if (edit || view){
-                preencher();
-                txLogin.setEditable(false);
-                lbUsuario.setDisable(true);
-            }
-            if (view){
-                visualizar();
-            }
-            if (!edit && !view){
-                txId.setText(Integer.toString(udao.idAutoIncrement()));
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+   
 
-    public void show(boolean view, boolean edit, int id) throws IOException {
-        Stage primaryStage = new Stage();
-        FXMLLoader root = new FXMLLoader(getClass().getResource("/views/GerenciarUsuario.fxml"));
-        root.setControllerFactory(c -> {
-            return new GerenciarUsuario(view, edit, id);
-        });
-        primaryStage.setTitle("ControlX - Gerenciar Usuário");
-        Main.stage.hide();
-        Main.stage = primaryStage;
-        primaryStage.setScene(new Scene(root.load(), primaryStage.getWidth(), primaryStage.getHeight()));
-        primaryStage.setResizable(false);
-        Main.stage.getIcons().add(new Image("images/controlx.png"));
-        primaryStage.show();
-    }
-
-    public void show() throws IOException {
-        Stage primaryStage = new Stage();
-        FXMLLoader root = new FXMLLoader(getClass().getResource("/views/GerenciarUsuario.fxml"));
-        root.setControllerFactory(c -> {
-            return new GerenciarUsuario();
-        });
-        primaryStage.setTitle("ControlX - Adicionar Usuário");
-        Main.stage.hide();
-        Main.stage = primaryStage;
-        primaryStage.setScene(new Scene(root.load(), primaryStage.getWidth(), primaryStage.getHeight()));
-        primaryStage.setResizable(false);
-        Main.stage.getIcons().add(new Image("images/controlx.png"));
-        primaryStage.show();
-    }
-
-    public void verificaLogin() throws ClassNotFoundException {
-        if (udao.verificaLogin(txLogin.getText())){
-            lbUsuario.setTextFill(Color.GREEN);
-            lbUsuario.setText("Login disponivel!");
-            checklogin = true;
-            ativarBotaoSalvar();
-
-        } else if (!udao.verificaLogin(txLogin.getText())){
-            lbUsuario.setTextFill(Color.RED);
-            lbUsuario.setText("Login em uso!");
-            checklogin = false;
-            ativarBotaoSalvar();
-        }
-    }
+  
 
     public void preencher() throws ClassNotFoundException {
         Usuario u = udao.read(id);

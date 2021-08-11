@@ -152,18 +152,7 @@ public class Estoque implements Initializable {
         new Categorias().show();
     }
 
-    public void pesquisarProduto() throws ClassNotFoundException {
-        if (rdId.isSelected()) {
-            listView(pdao.listAllById(txPesquisar.getText()));
-        } else if (rdNome.isSelected()) {
-            listView(pdao.listAllByName(txPesquisar.getText()));
-        }
-
-        if (txPesquisar.getText().equals("")) {
-            listView(pdao.listAll());
-        }
-
-    }
+ 
 
     public void pesquisarCategoria() throws ClassNotFoundException {
         String cat = cbCat.getValue().toString();
