@@ -1,0 +1,32 @@
+Kind,Name,PercentLackOfCohesion
+Public Class,"DAO.CategoriaDAO",0
+Public Class,"DAO.CompraDAO",81
+Public Class,"DAO.FornecedorDAO",0
+Public Class,"DAO.ProdutoDAO",30
+Public Class,"DAO.UsuarioDAO",0
+Public Class,"DAO.VendaDAO",91
+Public Class,"connection.ConnectionFactory",75
+Public Class,"controls.Categorias",82
+Public Class,"controls.Compras",82
+Class,"controls.Compras.verificaData.(lambda_expr_1).(Anon_1)",0
+Public Class,"controls.Estoque",85
+Public Class,"controls.Fornecedores",82
+Public Class,"controls.GerenciarCategoria",72
+Public Class,"controls.GerenciarFornecedor",67
+Public Class,"controls.GerenciarProduto",73
+Public Class,"controls.GerenciarUsuario",72
+Public Class,"controls.Historico",87
+Public Class,"controls.Login",60
+Public Class,"controls.Main",100
+Public Class,"controls.MenuPrincipal",92
+Public Class,"controls.NovaCompra",85
+Public Class,"controls.Usuarios",82
+Public Class,"controls.Vendas",82
+Public Class,"controls.VisualizarCompra",83
+Public Class,"controls.VisualizarVenda",89
+Public Class,"models.Categoria",62
+Public Class,"models.Compra",83
+Public Class,"models.Fornecedor",88
+Public Class,"models.Produto",81
+Public Class,"models.Usuario",91
+Public Class,"models.Venda",70
