@@ -46,30 +46,8 @@ public class MenuPrincipal implements Initializable
         usuario();
     }
 
-    public void verifCargo(){
-        if(Login.getUser().getCargo() == 2){ //ALMOXARIFE
-            btUsuarios.setDisable(true);
-            btVender.setDisable(true);
 
-        } else if(Login.getUser().getCargo() == 3){ //CAIXA
-            btUsuarios.setDisable(true);
-            btCompras.setDisable(true);
-            btFornecedores.setDisable(true);
-        }
-    }
-
-    public void usuario(){
-        lbUser.setText(Login.getUser().getNome());
-        if(Login.getUser().getCargo() == 0) {
-            lbCargo.setText("Administrador");
-        } else if(Login.getUser().getCargo() == 1) {
-            lbCargo.setText("Supervisor");
-        } else if(Login.getUser().getCargo() == 2) {
-            lbCargo.setText("Almoxarife");
-        } else if(Login.getUser().getCargo() == 3) {
-            lbCargo.setText("Caixa");
-        }
-    }
+    
 
     public void show() throws IOException {
         Stage primaryStage = new Stage();

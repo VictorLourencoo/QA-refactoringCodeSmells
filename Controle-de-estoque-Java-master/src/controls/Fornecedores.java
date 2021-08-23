@@ -50,7 +50,12 @@ public class Fornecedores implements Initializable {
         }
     }
 
-    public void show() throws IOException {
+    private void verificaSelecao() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void show() throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = new FXMLLoader(getClass().getResource("/views/Fornecedores.fxml"));
         root.setControllerFactory(c -> {
@@ -141,15 +146,5 @@ public class Fornecedores implements Initializable {
 
  
 
-    public void verificaSelecao(){
-        if (!tbView.getSelectionModel().isEmpty()){
-            btRemove.setDisable(false);
-            btEdit.setDisable(false);
-            btView.setDisable(false);
-        } else {
-            btRemove.setDisable(true);
-            btEdit.setDisable(true);
-            btView.setDisable(true);
-        }
-    }
+    
 }

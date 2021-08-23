@@ -81,13 +81,16 @@ public class Categorias implements Initializable {
         nomeColumn.setMinWidth(250);
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        tbView.setItems(lista);
-
-        tbView.getColumns().addAll(idColumn, nomeColumn);
-        verificaSelecao();
     }
 
-    public void botaoAddCategoria() throws IOException {
+       
+
+    private void verificaSelecao() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void botaoAddCategoria() throws IOException {
         new GerenciarCategoria().show();
     }
 
@@ -107,38 +110,18 @@ public class Categorias implements Initializable {
     }
 
     public void botaoEditCategoria() throws IOException, ClassNotFoundException {
-        new GerenciarCategoria().show(false, true, tbView.getSelectionModel().getSelectedItem().getId());
+        new GerenciarCategoria().show();
     }
 
     public void botaoViewCategoria() throws IOException, ClassNotFoundException {
-        new GerenciarCategoria().show(true, false, tbView.getSelectionModel().getSelectedItem().getId());
+        new GerenciarCategoria().show();
     }
 
     public void botaoVoltar() throws IOException {
         new Estoque().show();
     }
 
-    public void pesquisarCategoria() throws ClassNotFoundException {
-        if (rdId.isSelected()) {
-            listView(cdao.listAllById(txPesquisar.getText()));
-        } else if (rdNome.isSelected()) {
-            listView(cdao.listAllByName(txPesquisar.getText()));
-        }
+ 
 
-        if (txPesquisar.getText().equals("")) {
-            listView(cdao.listAll());
-        }
-    }
 
-    public void verificaSelecao(){
-        if (!tbView.getSelectionModel().isEmpty()){
-            btRemove.setDisable(false);
-            btEdit.setDisable(false);
-            btView.setDisable(false);
-        } else {
-            btRemove.setDisable(true);
-            btEdit.setDisable(true);
-            btView.setDisable(true);
-        }
-    }
 }

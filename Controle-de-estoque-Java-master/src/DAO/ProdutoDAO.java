@@ -28,13 +28,11 @@ public class ProdutoDAO {
             stmt = con.prepareStatement("INSERT INTO produtos (nome, preco, qntd, tipoUn, estoqueMin, idFornecedor, idCategoria) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);");
             stmt.setString(1, p.getNome());
-            stmt.setDouble(2, p.getPreco());
-            stmt.setDouble(3, p.getQtd());
-            stmt.setString(4, p.getTipoUn());
+          
+            stmt.setString(4, p.getQtdUn());
             stmt.setDouble(5, p.getEstoqueMin());
-            stmt.setInt(6, p.getForn().getId());
-            stmt.setInt(7, p.getCat().getId());
-
+           
+           
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -53,13 +51,10 @@ public class ProdutoDAO {
             stmt = con.prepareStatement("UPDATE produtos SET nome = ?, preco = ?, qntd = ?, " +
                     "tipoUn = ?, estoqueMin = ?, idFornecedor = ?, idCategoria = ? WHERE id = ?;");
             stmt.setString(1, p.getNome());
-            stmt.setDouble(2, p.getPreco());
-            stmt.setDouble(3, p.getQtd());
-            stmt.setString(4, p.getTipoUn());
+       
+            stmt.setString(4, p.getQtdUn());
             stmt.setDouble(5, p.getEstoqueMin());
-            stmt.setInt(6, p.getForn().getId());
-            stmt.setInt(7, p.getCat().getId());
-            stmt.setInt(8, p.getId());
+       
 
             stmt.executeUpdate();
 
@@ -86,7 +81,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -117,7 +112,7 @@ public class ProdutoDAO {
 
             stmt = con.prepareStatement("UPDATE produtos SET deleted_at = ? WHERE id = ?;");
             stmt.setString(1, data);
-            stmt.setInt(2, p.getId());
+           
 
             stmt.executeUpdate();
 
@@ -138,14 +133,14 @@ public class ProdutoDAO {
             stmt = con.prepareStatement("SELECT id, nome, preco, qntd, tipoUn," +
                     " estoqueMin, idFornecedor, idCategoria" +
                     " FROM produtos WHERE id = ? and deleted_at is NULL;");
-            stmt.setInt(1, p.getId());
+          
             rs = stmt.executeQuery();
 
             if (rs.next()) {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -176,7 +171,7 @@ public class ProdutoDAO {
                     prod.setId(rs.getInt("id"));
                     prod.setNome(rs.getString("nome"));
                     prod.setPreco(rs.getDouble("preco"));
-                    prod.setQtd(rs.getDouble("qntd"));
+                    prod.setId(rs.getDouble("qntd"));
                     prod.setTipoUn(rs.getString("tipoUn"));
                     prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                     prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -208,7 +203,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -231,7 +226,7 @@ public class ProdutoDAO {
 
         try {
             stmt = con.prepareStatement("SELECT * FROM produtos WHERE idFornecedor = ? AND deleted_at is NULL;");
-            stmt.setInt(1, f.getId());
+          
             rs = stmt.executeQuery();
 
             while (rs.next()){
@@ -239,7 +234,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -271,7 +266,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -303,7 +298,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -337,7 +332,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));
@@ -371,7 +366,7 @@ public class ProdutoDAO {
                 prod.setId(rs.getInt("id"));
                 prod.setNome(rs.getString("nome"));
                 prod.setPreco(rs.getDouble("preco"));
-                prod.setQtd(rs.getDouble("qntd"));
+                prod.setId(rs.getDouble("qntd"));
                 prod.setTipoUn(rs.getString("tipoUn"));
                 prod.setEstoqueMin(rs.getDouble("estoqueMin"));
                 prod.setForn(fornDAO.read(rs.getInt("idFornecedor")));

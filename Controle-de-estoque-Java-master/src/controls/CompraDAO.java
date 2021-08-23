@@ -11,4 +11,9 @@ public class CompraDAO {
 		return null;
 	}
 
+	public Compra read(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

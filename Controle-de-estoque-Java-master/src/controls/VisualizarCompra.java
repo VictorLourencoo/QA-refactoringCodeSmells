@@ -109,30 +109,7 @@ public class VisualizarCompra implements Initializable{
     }
 
 
-    public void botaoFinalizar() throws ClassNotFoundException, IOException {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("ControlX - Finalizar Pedido");
-        alert.setResizable(false);
-        alert.setHeaderText("Deseja Finalizar o Pedido de Compra?");
-        alert.setContentText("Após finalizada, a compra aparecerá no Histórico e será acrescentado os \n produtos no estoque.\n Deseja Finalizar");
-        alert.getButtonTypes();
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if(!result.isPresent())
-            return;
-        else if(result.get() == ButtonType.OK) {
-            compra.setStatus(1);
-            compra.setDataFinal(new Date(System.currentTimeMillis()));
-            cdao.up(compra);
-
-            //Atualizando Produtos
-            for(Produto p: compra.getProdutos()){
-                Produto pEstoque = pdao.read(p.getId());
-                pEstoque.setQtd(pEstoque.getQtd() + p.getQtd());
-                pdao.up(pEstoque);
-            }
-
+    
             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
             alert1.setTitle("ControlX - Pedido Finalizado");
             alert1.setContentText("Pedido Finalizado");

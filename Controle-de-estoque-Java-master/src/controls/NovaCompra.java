@@ -126,7 +126,7 @@ public class NovaCompra implements Initializable {
     }
 
     public void getUser(){
-        txVendedor.setText(Login.getUser().getNome());
+        txVendedor.setText(Login.getUser().getNum());
     }
 
     public void show() throws IOException {
@@ -178,7 +178,7 @@ public class NovaCompra implements Initializable {
         txPrecoTotal.clear();
         txPrecoTotal.setText(Double.toString(compra.getValor()));
         txVendedor.clear();
-        txVendedor.setText(compra.getUsuario().getNome());
+        txVendedor.setText(compra.getUsuario().getNum());
     }
 
 
@@ -207,10 +207,10 @@ public class NovaCompra implements Initializable {
     public void fillFields(){
         Produto p = (Produto) lvProdutos.getSelectionModel().getSelectedItem();
         txId.setText(String.valueOf(p.getId()));
-        txNome.setText(p.getNome());
-        txQtdEstoque.setText(String.valueOf(p.getQtd()) + " " + p.getTipoUn());
-        txPrecoUn.setText(String.valueOf("R$ " + p.getPreco()));
-        txPrecoCompra.setText(String.valueOf(p.getPreco()));
+        txNome.setText(p.getNum());
+        txQtdEstoque.setText(String.valueOf(p.getId()) + " " + p.getQtdUn());
+        txPrecoUn.setText(String.valueOf("R$ " + p.getPreco1()));
+        txPrecoCompra.setText(String.valueOf(p.getPreco1()));
     }
     public void clearFields(){
         txNome.clear();
@@ -238,7 +238,7 @@ public class NovaCompra implements Initializable {
                 return;
             }
         }
-        if (Double.parseDouble(txPrecoCompra.getText()) > pro.getPreco()) {//Se Preço compra for maior que preço venda
+        if (Double.parseDouble(txPrecoCompra.getText()) > pro.getPreco1()) {//Se Preço compra for maior que preço venda
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("ControlX - Aviso");
             alert.setResizable(false);
@@ -279,7 +279,7 @@ public class NovaCompra implements Initializable {
 
         for (Produto p : produtos) { //Para cada produto presente na lista estática
             //Adicionamos na observable list
-            prod.add(new Produto(p.getId(), p.getNome(), p.getPreco(), p.getQtd(), p.getTipoUn(), p.getCat()));
+            prod.add(new Produto(p.getId(), p.getNum(), p.getPreco1(), p.getId(), p.getQtdUn(), p.getCat()));
         }
 
         TableColumn<Produto, String> idColumn = new TableColumn<>("ID");
@@ -306,78 +306,12 @@ public class NovaCompra implements Initializable {
         DecimalFormat df = new DecimalFormat("#0.00");
         precoTotal = 0;
         for(Produto p: produtos){
-            precoTotal += (p.getQtd()*p.getPreco());
+           
         }
         txPrecoTotal.setText(String.valueOf(df.format(precoTotal)));
     }
 
-    public void comprar() throws ClassNotFoundException, IOException {
-    if(!view) {
-        if (tbProdutos.getItems().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ControlX - Aviso");
-            alert.setHeaderText("Impossível concluir a compra");
-            alert.setContentText("Você deve adicionar ao menos um produto\n na lista de compras.");
 
-            alert.showAndWait();
-        } else {
-
-            Compra c = new Compra();
-            c.setProdutos(produtos);
-            c.setUsuario(Login.getUser());
-            c.setValor(precoTotal);
-
-            c.setData(new Date(System.currentTimeMillis()));
-
-            c.setDataEntrega(java.sql.Date.valueOf(dtEntrega.getValue()));
-
-            boolean sucess = cdao.comprar(c);
-            if (sucess) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("ControlX - Compra Concluída");
-                alert.setHeaderText("Compra agendada com sucesso");
-                alert.setContentText("A compra foi agendada com sucesso! \nCheque o histórico para mais detalhes.");
-                alert.showAndWait();
-                new Compras().show();
-
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ControlX - Compra Malsucedida");
-                alert.setHeaderText("Algo deu errado");
-                alert.setContentText("Um erro inesperado aconteceu! A Compra não foi finalizada.");
-                alert.showAndWait();
-            }
-        }
-    }else{
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("ControlX - Aviso");
-        alert.setHeaderText("Pedido Finalizada");
-        alert.setContentText("Produtos comprados foram acrescentado e atualizados.");
-
-        compra.setStatus(1);
-        compra.setDataFinal(new Date(System.currentTimeMillis()));
-        boolean sucess = cdao.up(compra);
-
-        //Atualizando Produtos
-        for(Produto p: produtos){
-            Produto pEstoque = pDAO.read(p.getId());
-            pEstoque.setQtd(pEstoque.getQtd() + p.getQtd());
-            pDAO.up(pEstoque);
-        }
-
-        if (sucess) {
-            new Compras().show();
-
-        } else {
-
-        }
-
-        alert.showAndWait();
-
-    }
-
-    }
 
     public void atvBotaoAdd(){
     if(!view) {
@@ -403,7 +337,7 @@ public class NovaCompra implements Initializable {
 
     public void clearTable(){
         produtos.clear();
-        precoTotal = 0;
+       
         txPrecoTotal.setText(String.valueOf(precoTotal));
         refreshTable();
         atvBotaoAdd();

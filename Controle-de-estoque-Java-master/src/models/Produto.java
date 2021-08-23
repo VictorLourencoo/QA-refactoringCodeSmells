@@ -39,9 +39,7 @@ public class Produto {
         this.forn = forn;
     }
     //-------x----------------x--------
-    public Categoria getCat(){
-        return this.cat;
-    }
+ 
     public void setCat(Categoria cat){
         this.cat = cat;
     }
@@ -80,12 +78,23 @@ public class Produto {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String getNome() {
+
+	public void setId(double d) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
-	public String getPreco() {
+	public void setNome(String string) {
 		// TODO Auto-generated method stub
-		return null;
+		
+	}
+	
+	public void setTipoUn(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setQtd(double parseDouble) {
+		// TODO Auto-generated method stub
+	
 	}
 }
+	

@@ -1,6 +1,12 @@
 package models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+
+import connection.ConnectionFactory;
 
 public class Usuario {
     private int id;
@@ -168,27 +174,41 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Usuario()
-    {
+    public boolean checkLogin(String login, String senha) throws ClassNotFoundException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean check = false;
 
+        try {
+            stmt = con.prepareStatement("SELECT * FROM usuario WHERE login = ? and senha = ? and deleted_at is NULL;");
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                check = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+            return check;
+        }
     }
-    //-------x----------------x--------
 
 
     @Override
     public String toString(){
         return id + " - " + nome;
     }
-	public int getCargo() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 	public void setNome(String string) {
 		// TODO Auto-generated method stub
 		
+	}
+	public int getCargo() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

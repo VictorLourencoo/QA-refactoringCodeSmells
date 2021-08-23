@@ -66,26 +66,24 @@ public class Pesquisa implements Initializable {
         */
 }
 	
-	   public void pesquisarFornecedor() throws ClassNotFoundException {
-	        CategoriaDAO fdao = null;
-			if (txPesquisar.getText().equals("")) {
-	            listView(fdao.listAll());
-	        }else {
 
-	            if (rdId.isSelected()) {
-	                listView(fdao.listAllById(txPesquisar.getText()));
-	            } else if (rdNome.isSelected()) {
-	                listView(fdao.listAllByName(txPesquisar.getText()));
-	            }
-	        }
-
-	    }
-	private void listView(List<Categoria> listAll) {
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	   public void pesquisarCategoria() throws ClassNotFoundException {
+	        if (rdId.isSelected()) {
+	            listView(cdao.listAllById(txPesquisar.getText()));
+	        } else if (rdNome.isSelected()) {
+	            listView(cdao.listAllByName(txPesquisar.getText()));
+	        }
+
+	        if (txPesquisar.getText().equals("")) {
+	            listView(cdao.listAll());
+	        }
+	    }
+	private void listView(List<Categoria> listAllById) {
 		// TODO Auto-generated method stub
 		
 	}

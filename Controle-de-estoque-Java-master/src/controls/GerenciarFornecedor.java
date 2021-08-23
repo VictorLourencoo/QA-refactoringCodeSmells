@@ -79,7 +79,12 @@ public class GerenciarFornecedor implements Initializable {
         
             preencher();
             visualizar();
-            ativarBotaoSalvar();
+            try {
+				botaoSalvar();
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
 
     private void preencher() {
@@ -166,13 +171,5 @@ public class GerenciarFornecedor implements Initializable {
         new Fornecedores().show();
     }
 
-    public void ativarBotaoSalvar(){
-        if(txNome.getText().isEmpty() || txCnpj.getText().isEmpty() || txTel1.getText().isEmpty() ||
-                txCep.getText().isEmpty() || txNum.getText().isEmpty() || txRua.getText().isEmpty() ||
-                txBairro.getText().isEmpty() || txCidade.getText().isEmpty() || txEstado.getText().isEmpty()) {
-            btSalvar.setDisable(true);
-        } else {
-            btSalvar.setDisable(false);
-        }
-    }
+  
 }

@@ -1,6 +1,7 @@
 package controls;
 
-import DAO.CompraDAO;
+import controls.Verificacao;
+
 import DAO.VendaDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.ChoiceBoxSkin;
+
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import models.Compra;
@@ -75,28 +76,19 @@ public class Historico implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try{
             verificaSelecao();
-            if(Login.getUser().getCargo() == 2){
-                tpVenda.setDisable(true);
-            } else if(Login.getUser().getCargo() == 3){
-                tpCompra.setDisable(true);
-                tpPane.getSelectionModel().select(tpVenda);
-            }
-            ObservableList<String> datas = FXCollections.observableArrayList("Hoje", "Ultimos 7 dias", "Ultimo mês","Todas");
-            cbFiltro.setItems(datas);
-            cbFiltro.setValue("Todas");
-            cbFiltroCompra.setItems(datas);
-            cbFiltroCompra.setValue("Todas");
-            fillTables();
-            if (venda){
-                tpPane.getSelectionModel().select(tpVenda);
-            }
+          
         }catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void show() throws IOException {
+    private void verificaSelecao() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void show() throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = new FXMLLoader(getClass().getResource("/views/Historico.fxml"));
         root.setControllerFactory(c -> {
@@ -280,19 +272,7 @@ public class Historico implements Initializable {
         new VisualizarVenda().show(vv);
     }
 
-    public void verificaSelecao(){
-        if(!tbCompras.getSelectionModel().isEmpty()){
-            btDetalhesCompra.setDisable(false);
-        } else {
-            btDetalhesCompra.setDisable(true);
-        }
 
-        if(!tbVendas.getSelectionModel().isEmpty()){
-            btDetalhesVenda.setDisable(false);
-        } else {
-            btDetalhesVenda.setDisable(true);
-        }
-    }
 
     public void checaFiltroCompra() throws ClassNotFoundException {
         Date dataHoje = new Date(System.currentTimeMillis());
@@ -317,26 +297,5 @@ public class Historico implements Initializable {
             fillTables();
     }
 
-    public void checaFiltroVenda() throws ClassNotFoundException {
-        Date dataHoje = new Date(System.currentTimeMillis());
-        dataHoje.setHours(0);
-        dataHoje.setMinutes(0);
-        dataHoje.setSeconds(0);
-        Calendar c = Calendar.getInstance();
-        c.setTime(dataHoje);
-
-        if(cbFiltro.getValue() == "Hoje"){
-            fillVendaByDate(c.getTime());
-        }
-        else if (cbFiltro.getValue() == "Ultimos 7 dias"){
-            c.add(Calendar.DATE, -7);
-            fillVendaByDate(c.getTime());
-        }
-        else if (cbFiltro.getValue() == "Ultimo mês"){
-            c.add(Calendar.DATE, -30);
-            fillVendaByDate(c.getTime());
-        }
-        else
-            fillTables();
-    }
+    
 }

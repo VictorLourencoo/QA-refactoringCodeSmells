@@ -27,7 +27,7 @@ public class FornecedorDAO {
             stmt.setString(2, f.getCnpj());
             stmt.setString(3, f.getTelefone1());
             stmt.setString(4, f.getTelefone2());
-            stmt.setString(5, f.getCep());
+            stmt.setNString(5, f.getCep());
             stmt.setInt(6, f.getNum());
             stmt.setString(7, f.getRua());
             stmt.setString(8, f.getComp());
@@ -55,7 +55,7 @@ public class FornecedorDAO {
             stmt.setString(2, f.getCnpj());
             stmt.setString(3, f.getTelefone1());
             stmt.setString(4, f.getTelefone2());
-            stmt.setString(5, f.getCep());
+            stmt.setNString(5, f.getCep());
             stmt.setInt(6, f.getNum());
             stmt.setString(7, f.getRua());
             stmt.setString(8, f.getComp());
@@ -207,7 +207,7 @@ public class FornecedorDAO {
         }
     }
 
-    public Fornecedor read(String string) throws ClassNotFoundException {
+    public Fornecedor read(int i) throws ClassNotFoundException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;

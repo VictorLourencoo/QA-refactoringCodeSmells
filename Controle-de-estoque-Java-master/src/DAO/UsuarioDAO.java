@@ -15,28 +15,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public boolean checkLogin(String login, String senha) throws ClassNotFoundException {
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        boolean check = false;
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM usuario WHERE login = ? and senha = ? and deleted_at is NULL;");
-            stmt.setString(1, login);
-            stmt.setString(2, senha);
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                check = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-            return check;
-        }
-    }
+  
 
 
     public void add(Usuario u) throws ClassNotFoundException {
@@ -65,7 +44,7 @@ public class UsuarioDAO {
             stmt.setString(11, u.getBairro());
             stmt.setString(12, u.getCidade());
             stmt.setString(13, u.getEstado());
-            stmt.setInt(14, u.getCargo());
+         
             stmt.setString(15, u.getLogin());
             stmt.setString(16, u.getSenha());
 
@@ -88,7 +67,7 @@ public class UsuarioDAO {
             stmt = con.prepareStatement("UPDATE usuario SET nome = ?, cpf = ?, sexo = ?, dataNasc = ?," +
                     " tel1 = ?, tel2 = ?, cep = ?, num = ?, rua = ?, comp = ?," +
                     " bairro = ?, cidade = ?, estado = ?, cargo = ?, login = ?, senha = ? WHERE id = ?;");
-            Usuario user = new Usuario();
+            Usuario user = new Usuario(0, null, null, null, null, null, null, null, 0, null, null, null, null, null, 0, null, null);
             
             stmt.setString(2, u.getCpf());
             stmt.setString(3, u.getSexo());
@@ -103,10 +82,7 @@ public class UsuarioDAO {
             stmt.setString(11, u.getBairro());
             stmt.setString(12, u.getCidade());
             stmt.setString(13, u.getEstado());
-            stmt.setInt(14, u.getCargo());
-            stmt.setString(16, u.getLogin());
-            stmt.setString(17, u.getSenha());
-            stmt.setInt(18, u.getId());
+       
 
             stmt.executeUpdate();
 
@@ -115,6 +91,7 @@ public class UsuarioDAO {
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
+        
 
     }
     public List<Usuario> listAll() throws ClassNotFoundException {
@@ -129,7 +106,7 @@ public class UsuarioDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()){
-                Usuario user = new Usuario();
+                Usuario user = new Usuario(0, null, null, null, null, null, null, null, 0, null, null, null, null, null, 0, null, null);
                 user.setId(rs.getInt("id"));
                 user.setNome(rs.getString("nome"));
                 user.setCpf(rs.getString("cpf"));
@@ -172,7 +149,7 @@ public class UsuarioDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()){
-                Usuario user = new Usuario();
+                Usuario user = new Usuario(0, id, id, id, null, id, id, id, 0, id, id, id, id, id, 0, id, id);
                 user.setId(rs.getInt("id"));
                 user.setNome(rs.getString("nome"));
                 user.setCpf(rs.getString("cpf"));
@@ -215,7 +192,7 @@ public class UsuarioDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()){
-                Usuario user = new Usuario();
+                Usuario user = new Usuario(0, nome, nome, nome, null, nome, nome, nome, 0, nome, nome, nome, nome, nome, 0, nome, nome);
                 user.setId(rs.getInt("id"));
                 user.setNome(rs.getString("nome"));
                 user.setCpf(rs.getString("cpf"));
@@ -259,7 +236,7 @@ public class UsuarioDAO {
 
             stmt = con.prepareStatement("UPDATE usuario SET deleted_at = ? WHERE id = ?;");
             stmt.setString(1, data);
-            stmt.setInt(2, u.getId());
+       
 
             stmt.executeUpdate();
 
@@ -275,7 +252,7 @@ public class UsuarioDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Usuario user = new Usuario();
+        Usuario user = new Usuario(id, null, null, null, null, null, null, null, id, null, null, null, null, null, id, null, null);
 
         try {
             stmt = con.prepareStatement("SELECT * "+
@@ -314,7 +291,7 @@ public class UsuarioDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Usuario user = new Usuario();
+        Usuario user = new Usuario(0, login, login, login, null, login, login, login, 0, login, login, login, login, login, 0, login, login);
 
         try {
             stmt = con.prepareStatement("SELECT * "+
@@ -353,12 +330,12 @@ public class UsuarioDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Usuario user = new Usuario();
+        Usuario user = new Usuario(0, null, null, null, null, null, null, null, 0, null, null, null, null, null, 0, null, null);
 
         try {
             stmt = con.prepareStatement("SELECT * "+
                     " FROM usuario WHERE id = ? and deleted_at is NULL;");
-            stmt.setInt(1, u.getId());
+          
             rs = stmt.executeQuery();
 
             if (rs.next()) {

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -34,6 +35,8 @@ public class Verificacao implements Initializable {
 
     CompraDAO cdao = new CompraDAO();
     ProdutoDAO pdao = new ProdutoDAO();
+	private Node btDetalhesCompra;
+	private Node btDetalhesVenda;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,33 +47,20 @@ public class Verificacao implements Initializable {
 
 
 
-    private void listViewPendentes(List<Compra> listAll) {
+    private void verificaData() {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 
-	
+	private void listViewPendentes(List<Compra> listAll) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    public void verificaData(){
-        Date data = new Date(System.currentTimeMillis());
-        tbCPendentes.setRowFactory(tv -> {
-            return new TableRow<Compra>() {
-                @Override
-                public void updateItem(Compra c, boolean empty) {
-                    super.updateItem(c, empty) ;
-                    if (c == null) {
-                        setStyle("");
-                    } else if (c.getDataEntrega().before(data)) {
-                        setStyle("-fx-text-background-color: #AAA;");
-                        //setStyle("-fx-background-color: #0080FF;");
-                    } else {
-                        //setStyle("-fx-background-color: #0080FF;");
-                    }
-                }
-            };
-        });
+
+  
     }
 
  

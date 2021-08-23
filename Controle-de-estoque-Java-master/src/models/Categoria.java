@@ -31,9 +31,9 @@ public class Categoria {
     //-------x----------------x--------
     //Construtores
     //-------x----------------x--------
-    public Categoria(String nome, int id){
+    public Categoria(String nome, int categoria){
         this.nome = nome;
-        this.id = id;
+        this.id = categoria;
     }
     //-------x----------------x--------
     public Categoria(){
@@ -44,5 +44,13 @@ public class Categoria {
     public String toString(){
         return this.id + " - " + this.nome;
     }
+	public Categoria getId1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public int getId() {
+		// TODO Auto-generated method stub
+		return (Integer) null;
+	}
 
 }

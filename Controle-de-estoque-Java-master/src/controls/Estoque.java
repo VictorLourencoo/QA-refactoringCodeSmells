@@ -47,21 +47,7 @@ public class Estoque implements Initializable {
     private ProdutoDAO pdao = new ProdutoDAO();
     private CategoriaDAO cdao = new CategoriaDAO();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            if(Login.getUser().getCargo() == 3){
-                btAdd.setDisable(true);
-                btCategorias.setDisable(true);
-            }
-            listView(pdao.listAll());
-            iniComboBox();
-            verificaSelecao();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
+   
     public void show() throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = new FXMLLoader(getClass().getResource("/views/Estoque.fxml"));

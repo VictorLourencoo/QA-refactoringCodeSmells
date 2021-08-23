@@ -38,8 +38,8 @@ public class Compra {
     public List<Produto> getProdutos(){
         return this.produtos;
     }
-    public void setProdutos(List<Produto> produtos){
-        this.produtos = produtos;
+    public void setProdutos(Object produtos2){
+        this.produtos = (List<Produto>) produtos2;
     }
     //-------x----------------x--------
     public int getStatus() {

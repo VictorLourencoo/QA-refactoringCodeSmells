@@ -70,7 +70,7 @@ public class GerenciarProduto implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             if(view == false){
-            iniComboBox();
+          
             ativarBotaoSalvar();
             }
 
@@ -100,12 +100,12 @@ public class GerenciarProduto implements Initializable {
 
         txNome.setText(p.getNome());
         txId.setText(Integer.toString(p.getId()));
-        txPreco.setText(Double.toString(p.getPreco()));
-        txQtd.setText(Double.toString(p.getQtd()));
-        cbUn.setValue(p.getTipoUn());
+     
+        txQtd.setText(Double.toString(p.getId()));
+        cbUn.setValue(p.getQtdUn());
         txEstoqueMin.setText(Double.toString(p.getEstoqueMin()));
         cbForn.setValue(p.getForn());
-        cbCat.setValue(p.getCat());
+     
     }
 
     public void ativarBotaoSalvar(){
@@ -164,34 +164,7 @@ public class GerenciarProduto implements Initializable {
     }
 
 
-    public void iniComboBox() throws ClassNotFoundException {
-        //Categoria
-        ObservableList<Categoria> categorias = FXCollections.observableArrayList();
-        for (Categoria cat : cdao.listAll()) {
-            categorias.add(cat);
-        }
-        cbCat.setItems(categorias);
-        cbCat.setValue("<Selecione>");
 
-       //Fornecedor
-        ObservableList<Fornecedor> fornecedores = FXCollections.observableArrayList();
-        for(Fornecedor f : fdao.listAll()) {
-            fornecedores.add(f);
-        }
-        cbForn.setItems(fornecedores);
-        cbForn.setValue("<Selecione>");
-
-       //TipoUn
-        ObservableList<String> tipoUn = FXCollections.observableArrayList("UN", "KG", "L", "ML", "G", "M", "CM");
-        cbUn.setItems(tipoUn);
-        cbUn.setValue("<Selecione>");
-
-
-    }
-
-    public void btCancel_Click(MouseEvent mouseEvent) throws IOException {
-        new Estoque().show();
-    }
 
     public void btSalvar_Click(MouseEvent mouseEvent) throws ClassNotFoundException, IOException {
 

@@ -45,11 +45,11 @@ public class GerenciarCategoria implements Initializable {
    
 
 
-    public void show(boolean view, boolean edit, int id) throws IOException {
+    public void show() throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = new FXMLLoader(getClass().getResource("/views/GerenciarCategoria.fxml"));
         root.setControllerFactory(c -> {
-            return new GerenciarCategoria(view, edit, id);
+            return new GerenciarCategoria();
         });
         Main.stage.hide();
         Main.stage = primaryStage;
@@ -58,7 +58,7 @@ public class GerenciarCategoria implements Initializable {
         primaryStage.show();
     }
 
-    public void show() throws IOException {
+    public void show1(boolean b, boolean d, int i) throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader root = new FXMLLoader(getClass().getResource("/views/GerenciarCategoria.fxml"));
         root.setControllerFactory(c -> {
@@ -92,6 +92,11 @@ public class GerenciarCategoria implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void show11(boolean view2, boolean edit2, int id) {
 		// TODO Auto-generated method stub
 		
 	}
